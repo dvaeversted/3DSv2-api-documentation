@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>7. Sandbox Testcases &mdash; 3DSecure.io  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/scenario_selector.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/overrides.css" type="text/css" />
+  <link rel="stylesheet" href="_static/scenario_selector.css" type="text/css" />
+  <link rel="stylesheet" href="_static/doc_table.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="6. Reference" href="reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">1. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server-information.html">2. Server information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">3. API Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides.html">4. Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">5. Authentication Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">6. Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Sandbox Testcases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generic-tests">7.1. Generic Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#unrecognized-bin">Unrecognized BIN</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#browser-tests">7.2. Browser Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ds-method-timeout">3DS Method timeout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frictionless-auth-with-3ds-method">Frictionless auth with 3DS Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frictionless-auth-without-3ds-method">Frictionless auth without 3DS Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-challenge-pass">Automatic Challenge pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-challenge-fail">Automatic Challenge fail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-challenge-auth-with-3ds-method">Manual Challenge auth with 3DS Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frictionless-transaction-status-n">Frictionless transaction status <code class="docutils literal notranslate"><span class="pre">N</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frictionless-transaction-status-u">Frictionless transaction status <code class="docutils literal notranslate"><span class="pre">U</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frictionless-transaction-status-r">Frictionless transaction status <code class="docutils literal notranslate"><span class="pre">R</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rejected-frictionless-transaction-with-cardholderinfo">Rejected frictionless transaction with <code class="docutils literal notranslate"><span class="pre">cardholderInfo</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ds-timeout">DS Timeout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#successful-frictionless">Successful frictionless</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#successful-frictionless-attempt">Successful frictionless attempt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ri-tests">7.3. 3RI Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#transaction-status-y">Transaction status <code class="docutils literal notranslate"><span class="pre">Y</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transaction-status-a">Transaction status <code class="docutils literal notranslate"><span class="pre">A</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transaction-status-u">Transaction status <code class="docutils literal notranslate"><span class="pre">U</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transaction-status-r">Transaction status <code class="docutils literal notranslate"><span class="pre">R</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">3DSecure.io</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>7. Sandbox Testcases</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/sandbox.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sandbox-testcases">
+<span id="sandbox"></span><h1>7. Sandbox Testcases<a class="headerlink" href="#sandbox-testcases" title="Permalink to this headline">¶</a></h1>
+<p>The sandbox contains a list of test cases meant to assist you in
+implementation.</p>
+<p>It is also the intension that you can use the sandbox for automatic integration
+testing of your service. We will not modify individual test cases and will
+deprecate them with a sufficient grace period, if need be.</p>
+<p>The 3-D Secure server sandbox validates input according to the specification.</p>
+<div class="section" id="generic-tests">
+<h2>7.1. Generic Tests<a class="headerlink" href="#generic-tests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="unrecognized-bin">
+<h3>Unrecognized BIN<a class="headerlink" href="#unrecognized-bin" title="Permalink to this headline">¶</a></h3>
+<p>Test that your system handles account numbers that are not enrolled.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><ol class="arabic simple">
+<li><p>Send <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth input</span></a> using an account number between
+<code class="docutils literal notranslate"><span class="pre">9000100149672445</span></code> and <code class="docutils literal notranslate"><span class="pre">9000100158669649</span></code>.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="preauth.html#not-enrolled"><span class="std std-ref">not enrolled</span></a> response.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>Your system handles the <a class="reference internal" href="preauth.html#not-enrolled"><span class="std std-ref">not enrolled</span></a> response.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="browser-tests">
+<h2>7.2. Browser Tests<a class="headerlink" href="#browser-tests" title="Permalink to this headline">¶</a></h2>
+<p>These tests involve <code class="docutils literal notranslate"><span class="pre">deviceChannel:</span> <span class="pre">02</span></code>. This must be set in all
+authentication requests.</p>
+<div class="section" id="ds-method-timeout">
+<h3>3DS Method timeout<a class="headerlink" href="#ds-method-timeout" title="Permalink to this headline">¶</a></h3>
+<p>Test that your system handles 3DS Methods that time out.  Your system should
+correctly set <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> to <code class="docutils literal notranslate"><span class="pre">N</span></code> in the <code class="docutils literal notranslate"><span class="pre">/auth</span></code> call, after a timed
+out 3DS Method call.</p>
+<dl>
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000100434274192</span></code> and <code class="docutils literal notranslate"><span class="pre">9000100458973304</span></code>.</p>
+<ol class="arabic">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Execute the <a class="reference internal" href="3dsmethod.html#ds-method"><span class="std std-ref">3DS Method</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> must be set dynamically, otherwise the test is
+superfluous.</p>
+</li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">Y</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="frictionless-auth-with-3ds-method">
+<h3>Frictionless auth with 3DS Method<a class="headerlink" href="#frictionless-auth-with-3ds-method" title="Permalink to this headline">¶</a></h3>
+<p>Test that your system correctly handles a 3DS Method call.  Your system should
+correctly set <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> to <code class="docutils literal notranslate"><span class="pre">Y</span></code> in the <code class="docutils literal notranslate"><span class="pre">/auth</span></code> call.</p>
+<dl>
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000100553679418</span></code> and <code class="docutils literal notranslate"><span class="pre">9000100595707805</span></code>.</p>
+<ol class="arabic">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Execute the <a class="reference internal" href="3dsmethod.html#ds-method"><span class="std std-ref">3DS Method</span></a>, handle the timeout correctly.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> must be set dynamically, otherwise the test is
+superfluous.</p>
+</li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">Y</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="frictionless-auth-without-3ds-method">
+<h3>Frictionless auth without 3DS Method<a class="headerlink" href="#frictionless-auth-without-3ds-method" title="Permalink to this headline">¶</a></h3>
+<p>Test that your system correctly handles an auth without a 3DS Method.  Your
+system should correctly set <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> to <code class="docutils literal notranslate"><span class="pre">U</span></code> in the <code class="docutils literal notranslate"><span class="pre">/auth</span></code> call.</p>
+<dl>
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000100659307466</span></code> and <code class="docutils literal notranslate"><span class="pre">9000100695973527</span></code>.</p>
+<ol class="arabic">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> must be set dynamically, otherwise the test is
+superfluous.</p>
+</li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">Y</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="automatic-challenge-pass">
+<h3>Automatic Challenge pass<a class="headerlink" href="#automatic-challenge-pass" title="Permalink to this headline">¶</a></h3>
+<p>Test that your system correctly handles a 3DS Method call.  Your system should
+correctly set <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> to <code class="docutils literal notranslate"><span class="pre">Y</span></code> in the <code class="docutils literal notranslate"><span class="pre">/auth</span></code> call.</p>
+<dl>
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000100900000000</span></code> and <code class="docutils literal notranslate"><span class="pre">9000100999999999</span></code>.</p>
+<ol class="arabic">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Execute the <a class="reference internal" href="3dsmethod.html#ds-method"><span class="std std-ref">3DS Method</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> must be set dynamically, otherwise the test is
+superfluous.</p>
+</li>
+<li><p>The challenge will auto-submit, using javascript.</p></li>
+<li><p>Fetch the challenge result using the <a class="reference internal" href="postauth.html#postauth-usage"><span class="std std-ref">postauth endpoint</span></a>.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#postauth-response"><span class="std std-ref">postauth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> either <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">RReq</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="automatic-challenge-fail">
+<h3>Automatic Challenge fail<a class="headerlink" href="#automatic-challenge-fail" title="Permalink to this headline">¶</a></h3>
+<p>Test that your system correctly handles a 3DS Method call.  Your system should
+correctly set <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> to <code class="docutils literal notranslate"><span class="pre">Y</span></code> in the <code class="docutils literal notranslate"><span class="pre">/auth</span></code> call.</p>
+<dl>
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000101000000000</span></code> and <code class="docutils literal notranslate"><span class="pre">9000101099999999</span></code>.</p>
+<ol class="arabic">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Execute the <a class="reference internal" href="3dsmethod.html#ds-method"><span class="std std-ref">3DS Method</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> must be set dynamically, otherwise the test is
+superfluous.</p>
+</li>
+<li><p>The challenge will auto-submit, using javascript.</p></li>
+<li><p>Fetch the challenge result using the <a class="reference internal" href="postauth.html#postauth-usage"><span class="std std-ref">postauth endpoint</span></a>.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#postauth-response"><span class="std std-ref">postauth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> either <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">RReq</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="manual-challenge-auth-with-3ds-method">
+<h3>Manual Challenge auth with 3DS Method<a class="headerlink" href="#manual-challenge-auth-with-3ds-method" title="Permalink to this headline">¶</a></h3>
+<p>Test that your system correctly handles a 3DS Method call.  Your system should
+correctly set <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> to <code class="docutils literal notranslate"><span class="pre">Y</span></code> in the <code class="docutils literal notranslate"><span class="pre">/auth</span></code> call.</p>
+<dl>
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000100820989135</span></code> and <code class="docutils literal notranslate"><span class="pre">9000100886343862</span></code>.</p>
+<ol class="arabic">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Execute the <a class="reference internal" href="3dsmethod.html#ds-method"><span class="std std-ref">3DS Method</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">threeDSCompInd</span></code> must be set dynamically, otherwise the test is
+superfluous.</p>
+</li>
+<li><p>Handle the challenge in a browser.</p></li>
+<li><p>Fetch the challenge result using the <a class="reference internal" href="postauth.html#postauth-usage"><span class="std std-ref">postauth endpoint</span></a>.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#postauth-response"><span class="std std-ref">postauth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> either <code class="docutils literal notranslate"><span class="pre">Y</span></code> or <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">RReq</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">Y</span></code> or <code class="docutils literal notranslate"><span class="pre">N</span></code>,
+depending on how the challenge was handled.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="frictionless-transaction-status-n">
+<h3>Frictionless transaction status <code class="docutils literal notranslate"><span class="pre">N</span></code><a class="headerlink" href="#frictionless-transaction-status-n" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">N</span></code>.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000105010482916</span></code> and <code class="docutils literal notranslate"><span class="pre">9000105038106791</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">N</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="frictionless-transaction-status-u">
+<h3>Frictionless transaction status <code class="docutils literal notranslate"><span class="pre">U</span></code><a class="headerlink" href="#frictionless-transaction-status-u" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">U</span></code>.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000105038106791</span></code> and <code class="docutils literal notranslate"><span class="pre">9000105065730666</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">U</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">U</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="frictionless-transaction-status-r">
+<h3>Frictionless transaction status <code class="docutils literal notranslate"><span class="pre">R</span></code><a class="headerlink" href="#frictionless-transaction-status-r" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">R</span></code>.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000105065730666</span></code> and <code class="docutils literal notranslate"><span class="pre">9000105093354541</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">R</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">R</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="rejected-frictionless-transaction-with-cardholderinfo">
+<h3>Rejected frictionless transaction with <code class="docutils literal notranslate"><span class="pre">cardholderInfo</span></code><a class="headerlink" href="#rejected-frictionless-transaction-with-cardholderinfo" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">N</span></code> and contains <code class="docutils literal notranslate"><span class="pre">cardholderInfo</span></code></p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000105113106175</span></code> and <code class="docutils literal notranslate"><span class="pre">9000105172916775</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">N</span></code> and <code class="docutils literal notranslate"><span class="pre">cardholderInfo</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>Your system correctly displays <code class="docutils literal notranslate"><span class="pre">cardholderInfo</span></code> to the cardholder.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="ds-timeout">
+<h3>DS Timeout<a class="headerlink" href="#ds-timeout" title="Permalink to this headline">¶</a></h3>
+<p>Transactions times out at DS</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000105342632400</span></code> and <code class="docutils literal notranslate"><span class="pre">9000105380304639</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+<li><p>Handle timeout correctly.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>An <a class="reference internal" href="reference.html#id9"><span class="std std-ref">error object</span></a>  with <code class="docutils literal notranslate"><span class="pre">errorCode:</span> <span class="pre">405</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>Your system gracefully handles timeouts and returned errors.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="successful-frictionless">
+<h3>Successful frictionless<a class="headerlink" href="#successful-frictionless" title="Permalink to this headline">¶</a></h3>
+<p>Handle a successful frictionless transaction.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000105531598636</span></code> and <code class="docutils literal notranslate"><span class="pre">9000105572570541</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">Y</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="successful-frictionless-attempt">
+<h3>Successful frictionless attempt<a class="headerlink" href="#successful-frictionless-attempt" title="Permalink to this headline">¶</a></h3>
+<p>Handle a successful frictionless transaction attempt.</p>
+<dl class="simple">
+<dt>Endpoint under test</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">https://service.sandbox.3dsecure.io/auth</span></code></p></li>
+</ul>
+</dd>
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000105627843508</span></code> and <code class="docutils literal notranslate"><span class="pre">9000105688494389</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform the <a class="reference internal" href="reference.html#preauth-input"><span class="std std-ref">preauth call</span></a>.</p></li>
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">A</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="ri-tests">
+<h2>7.3. 3RI Tests<a class="headerlink" href="#ri-tests" title="Permalink to this headline">¶</a></h2>
+<p>These tests involve <code class="docutils literal notranslate"><span class="pre">deviceChannel:</span> <span class="pre">03</span></code>. This must be set in all
+authentication requests.</p>
+<div class="section" id="transaction-status-y">
+<h3>Transaction status <code class="docutils literal notranslate"><span class="pre">Y</span></code><a class="headerlink" href="#transaction-status-y" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">Y</span></code>.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000110500000000</span></code> and <code class="docutils literal notranslate"><span class="pre">9000110599999999</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">Y</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">Y</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="transaction-status-a">
+<h3>Transaction status <code class="docutils literal notranslate"><span class="pre">A</span></code><a class="headerlink" href="#transaction-status-a" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">A</span></code>.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000110600000000</span></code> and <code class="docutils literal notranslate"><span class="pre">9000110699999999</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">A</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="transaction-status-u">
+<h3>Transaction status <code class="docutils literal notranslate"><span class="pre">U</span></code><a class="headerlink" href="#transaction-status-u" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">U</span></code>.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000110700000000</span></code> and <code class="docutils literal notranslate"><span class="pre">9000110799999999</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">U</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">U</span></code>.</p>
+</dd>
+</dl>
+</div>
+<hr class="docutils" />
+<div class="section" id="transaction-status-r">
+<h3>Transaction status <code class="docutils literal notranslate"><span class="pre">R</span></code><a class="headerlink" href="#transaction-status-r" title="Permalink to this headline">¶</a></h3>
+<p>Test a transaction that is rejected with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">R</span></code>.</p>
+<dl class="simple">
+<dt>Procedure:</dt><dd><p>Use an account number between <code class="docutils literal notranslate"><span class="pre">9000110800000000</span></code> and <code class="docutils literal notranslate"><span class="pre">9000110899999999</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Perform a regular <a class="reference internal" href="auth.html#auth-usage"><span class="std std-ref">auth call</span></a> using a nominal <a class="reference internal" href="reference.html#auth-input"><span class="std std-ref">auth input</span></a>.
+Use the same <code class="docutils literal notranslate"><span class="pre">acctNumber</span></code> as used in the <code class="docutils literal notranslate"><span class="pre">preauth</span></code> call.</p></li>
+</ol>
+</dd>
+<dt>Nominal response:</dt><dd><p>A <a class="reference internal" href="reference.html#auth-response"><span class="std std-ref">auth response</span></a> with <code class="docutils literal notranslate"><span class="pre">transStatus:</span> <span class="pre">R</span></code>.</p>
+</dd>
+<dt>Success criteria:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">messageType</span></code> is <code class="docutils literal notranslate"><span class="pre">ARes</span></code> and <code class="docutils literal notranslate"><span class="pre">transStatus</span></code> is <code class="docutils literal notranslate"><span class="pre">R</span></code>.</p>
+</dd>
+</dl>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="reference.html" class="btn btn-neutral float-left" title="6. Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, 3DSecure.io
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
